@@ -10,27 +10,15 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.viewconfig"
+    "onCommand:extension.mappingSearch"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "languages": [
-      {
-        "id": "dummyconfig",
-        "aliases": [
-          "DummyConfig",
-          "dc"
-        ],
-        "extensions": [
-          ".json"
-        ]
-      }
-    ],
     "commands": [
       {
-        "command": "extension.viewconfig",
-        "title": "Display config JSON.",
-        "category": "Webview React"
+        "command": "extension.mappingSearch",
+        "title": "Search mappings for classes, methods, or fields.",
+        "category": "Mappings"
       }
     ]
   },

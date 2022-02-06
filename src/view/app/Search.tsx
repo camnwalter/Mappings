@@ -26,7 +26,7 @@ export default class Search extends React.Component<{}, State> {
         .filter((key: string) => {
           return key.toLowerCase().includes(event.target.value.toLowerCase());
         })
-        .reduce((obj, key: string) => {
+        .reduce((obj: JsonResult, key: string) => {
           obj[key] = json[key];
           return obj;
         }, {}) as unknown as JsonResult,
@@ -41,7 +41,6 @@ export default class Search extends React.Component<{}, State> {
           onChange={this.onChange}
           placeholder="Type in here"
         />
-        {Object.keys(this.state.results)[0]}
         <table>
           <tr>
             <th>Classes</th>
@@ -57,7 +56,7 @@ export default class Search extends React.Component<{}, State> {
                   <td>
                     {methods.map(({ mcp, srg, desc }) => {
                       return (
-                        <tr>
+                        <tr className="methodTable">
                           <td>{mcp}</td>
                           <td>{desc}</td>
                           <td className="srg">{srg}</td>

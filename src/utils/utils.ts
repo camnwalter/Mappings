@@ -31,8 +31,6 @@ const parseField = (line: string) => {
   const clazz = obf.slice(0, splitter);
   const field = obf.slice(splitter + 1);
 
-  if (field === "$VALUES") return;
-
   splitter = deObf.lastIndexOf("/");
   const deObfField = deObf.slice(splitter + 1, -1);
 
@@ -40,7 +38,7 @@ const parseField = (line: string) => {
 };
 
 const file = fs.readFileSync(
-  path.resolve(__dirname, "../../assets/srg-mcp.srg"),
+  path.resolve(__dirname, "../view/assets/srg-mcp.srg"),
   "utf-8"
 );
 
@@ -57,6 +55,6 @@ lines.forEach((line) => {
 });
 
 fs.writeFileSync(
-  path.resolve(__dirname, "../../assets/srg-mcp.json"),
-  JSON.stringify(classes, null, 2)
+  path.resolve(__dirname, "../view/assets/srg-mcp.json"),
+  JSON.stringify(classes)
 );
