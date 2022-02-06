@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "outDir": "out",
+    "lib": ["esnext"],
+    "sourceMap": true,
+    "rootDir": "src",
+    "strict": true,
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules",
+    ".vscode-test",
+    "**/view/app/index.css",
+    "**/view/app/index.tsx",
+    "**/view/app/tsconfig.json",
+    "**/view/app/config.tsx"
+  ]
+}
