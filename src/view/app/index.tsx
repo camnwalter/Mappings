@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import "./index.css";
+import "./styles.css";
 import Search from "./Search";
 
 declare global {
@@ -13,8 +13,8 @@ declare global {
 // const vscode = window.acquireVsCodeApi();
 
 ReactDOM.render(
-  // <Config vscode={vscode} initialData={window.initialData} />,
-  // <EssayForm name="wowzers" />,
-  <Search />,
+  <div className="App">
+    <Search />
+  </div>,
   document.getElementById("root")
 );
