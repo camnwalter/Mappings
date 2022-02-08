@@ -3,8 +3,8 @@ import * as path from "path";
 
 const classes: {
   [key: string]: {
-    methods: { srg: string; mcp: string; desc: string }[];
-    fields: { srg: string; mcp: string }[];
+    methods: { owner: string; srg: string; mcp: string; desc: string }[];
+    fields: { owner: string; srg: string; mcp: string }[];
   };
 } = {};
 
@@ -22,7 +22,12 @@ const parseMethod = (line: string) => {
   splitter = deObf.lastIndexOf("/");
   const deObfMethod = deObf.slice(splitter + 1);
 
-  classes[clazz].methods.push({ srg: method, mcp: deObfMethod, desc });
+  classes[clazz].methods.push({
+    owner: clazz,
+    srg: method,
+    mcp: deObfMethod,
+    desc,
+  });
 };
 
 const parseField = (line: string) => {
@@ -34,7 +39,7 @@ const parseField = (line: string) => {
   splitter = deObf.lastIndexOf("/");
   const deObfField = deObf.slice(splitter + 1, -1);
 
-  classes[clazz].fields.push({ srg: field, mcp: deObfField });
+  classes[clazz].fields.push({ owner: clazz, srg: field, mcp: deObfField });
 };
 
 const file = fs.readFileSync(
