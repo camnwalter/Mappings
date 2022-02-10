@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import json from "../assets/srg-mcp.json";
+import ShiftDiv from "./ShiftDiv";
 
 interface Method {
   owner: string;
@@ -124,18 +125,25 @@ export default function Search() {
         </div>
         <div className="column">
           <h2>Methods:</h2>
-          {methods.map(({ owner, mcp }, index) => (
-            <div key={index} onClick={() => filterToClass(owner)}>
-              {mcp}
-            </div>
+          {methods.map(({ owner, mcp, srg, desc }, index) => (
+            <ShiftDiv
+              key={index}
+              onClick={() => filterToClass(owner)}
+              mcp={mcp}
+              srg={srg}
+              desc={desc}
+            />
           ))}
         </div>
         <div className="column">
           <h2>Fields:</h2>
-          {fields.map(({ owner, mcp }, index) => (
-            <div key={index} onClick={() => filterToClass(owner)}>
-              {mcp}
-            </div>
+          {fields.map(({ owner, mcp, srg }, index) => (
+            <ShiftDiv
+              key={index}
+              onClick={() => filterToClass(owner)}
+              mcp={mcp}
+              srg={srg}
+            />
           ))}
         </div>
       </div>
