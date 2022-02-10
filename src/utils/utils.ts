@@ -1,11 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
+import type { Clazz } from "../view/app/types";
 
 const classes: {
-  [key: string]: {
-    methods: { owner: string; srg: string; mcp: string; desc: string }[];
-    fields: { owner: string; srg: string; mcp: string }[];
-  };
+  [key: string]: Clazz;
 } = {};
 
 const parseClass = (line: string) => {

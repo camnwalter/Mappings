@@ -1,37 +1,8 @@
 import React, { useRef, useState } from "react";
 import json from "../assets/srg-mcp.json";
 import ShiftDiv from "./ShiftDiv";
-
-interface Method {
-  owner: string;
-  mcp: string;
-  srg: string;
-  desc: string;
-}
-
-interface Field {
-  owner: string;
-  mcp: string;
-  srg: string;
-}
-
-interface Clazz {
-  methods: Method[];
-  fields: Field[];
-}
-
-interface HtmlInputFix extends HTMLInputElement {
-  value: string;
-}
-
-const includesIgnoreCase = (
-  searchValue: string,
-  ...stringsToSearch: string[]
-) => {
-  return stringsToSearch.some((string) => {
-    return string.toLowerCase().includes(searchValue.toLowerCase());
-  });
-};
+import type { Clazz, Field, Method } from "./types";
+import { includesIgnoreCase } from "./utils";
 
 export default function Search() {
   const [currentSearch, setCurrentSearch] = useState("");
@@ -48,7 +19,7 @@ export default function Search() {
 
   const resetSearch = () => {
     setCurrentSearch("");
-    shouldReset.current.value = "";
+    shouldReset.current!.value = "";
   };
 
   const search = () => {
@@ -95,7 +66,7 @@ export default function Search() {
     <>
       <input
         placeholder="Search..."
-        onChange={(e) => setCurrentSearch((e.target as HtmlInputFix).value)}
+        onChange={(e) => setCurrentSearch(e.target.value)}
         width="200px"
         ref={shouldReset}
         onKeyPress={(e) => {
