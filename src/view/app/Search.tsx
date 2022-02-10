@@ -38,7 +38,7 @@ export default function Search() {
   const [classes, setClasses] = useState<string[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
   const [fields, setFields] = useState<Field[]>([]);
-  const shouldReset = useRef<any>(null);
+  const shouldReset = useRef<HTMLInputElement>(null);
 
   const resetStates = () => {
     setClasses([]);
@@ -48,7 +48,7 @@ export default function Search() {
 
   const resetSearch = () => {
     setCurrentSearch("");
-    shouldReset.current!.value = "";
+    shouldReset.current.value = "";
   };
 
   const search = () => {
@@ -99,13 +99,21 @@ export default function Search() {
         width="200px"
         ref={shouldReset}
         onKeyPress={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && e.currentTarget.value !== "") {
             resetStates();
             search();
           }
         }}
       ></input>
-      <button onClick={search}>Click to submit</button>
+      <button
+        onClick={(e) => {
+          if (e.currentTarget.value !== "") {
+            search();
+          }
+        }}
+      >
+        Click to submit
+      </button>
       <button
         onClick={() => {
           resetStates();
