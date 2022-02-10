@@ -1,3 +1,4 @@
+import { distance } from "fastest-levenshtein";
 import React, { useRef, useState } from "react";
 import json from "../assets/srg-mcp.json";
 import ShiftDiv from "./ShiftDiv";
@@ -9,6 +10,7 @@ export default function Search() {
   const [classes, setClasses] = useState<string[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
   const [fields, setFields] = useState<Field[]>([]);
+  const [shouldUpdate, setShouldUpdate] = useState(false);
   const shouldReset = useRef<HTMLInputElement>(null);
 
   const resetStates = () => {
@@ -40,6 +42,8 @@ export default function Search() {
         .flat()
         .filter(({ mcp, srg }) => includesIgnoreCase(currentSearch, mcp, srg))
     );
+
+    setShouldUpdate(true);
   };
 
   const filterToClass = (clazz: string) => {
@@ -60,16 +64,22 @@ export default function Search() {
         .map(([, { fields: f }]) => f)
         .flat()
     );
+
+    setShouldUpdate(true);
   };
 
   return (
     <>
       <input
         placeholder="Search..."
-        onChange={(e) => setCurrentSearch(e.target.value)}
+        onChange={(e) => {
+          setShouldUpdate(false);
+          setCurrentSearch(e.target.value);
+        }}
         width="200px"
         ref={shouldReset}
         onKeyPress={(e) => {
+          setShouldUpdate(false);
           if (e.key === "Enter" && e.currentTarget.value !== "") {
             resetStates();
             search();
@@ -96,34 +106,54 @@ export default function Search() {
       <div className="row">
         <div className="column">
           <h2>Classes:</h2>
-          {classes.map((c, index) => (
-            <div key={index} onClick={() => filterToClass(c)}>
-              {c}
-            </div>
-          ))}
+          {classes
+            .sort((a, b) =>
+              shouldUpdate
+                ? distance(a, currentSearch) - distance(b, currentSearch)
+                : 0
+            )
+            .map((c, index) => (
+              <div key={index} onClick={() => filterToClass(c)}>
+                {c}
+              </div>
+            ))}
         </div>
         <div className="column">
           <h2>Methods:</h2>
-          {methods.map(({ owner, mcp, srg, desc }, index) => (
-            <ShiftDiv
-              key={index}
-              onClick={() => filterToClass(owner)}
-              mcp={mcp}
-              srg={srg}
-              desc={desc}
-            />
-          ))}
+          {methods
+            .sort((a, b) =>
+              shouldUpdate
+                ? distance(a.mcp, currentSearch) -
+                  distance(b.mcp, currentSearch)
+                : 0
+            )
+            .map(({ owner, mcp, srg, desc }, index) => (
+              <ShiftDiv
+                key={index}
+                onClick={() => filterToClass(owner)}
+                mcp={mcp}
+                srg={srg}
+                desc={desc}
+              />
+            ))}
         </div>
         <div className="column">
           <h2>Fields:</h2>
-          {fields.map(({ owner, mcp, srg }, index) => (
-            <ShiftDiv
-              key={index}
-              onClick={() => filterToClass(owner)}
-              mcp={mcp}
-              srg={srg}
-            />
-          ))}
+          {fields
+            .sort((a, b) =>
+              shouldUpdate
+                ? distance(a.mcp, currentSearch) -
+                  distance(b.mcp, currentSearch)
+                : 0
+            )
+            .map(({ owner, mcp, srg }, index) => (
+              <ShiftDiv
+                key={index}
+                onClick={() => filterToClass(owner)}
+                mcp={mcp}
+                srg={srg}
+              />
+            ))}
         </div>
       </div>
     </>
