@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
-import Search from "./Search";
+import App from "./App";
 
 declare global {
   interface Window {
@@ -12,9 +12,4 @@ declare global {
 
 // const vscode = window.acquireVsCodeApi();
 
-ReactDOM.render(
-  <div className="App">
-    <Search />
-  </div>,
-  document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
