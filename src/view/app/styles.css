@@ -4,60 +4,45 @@
 
 body {
   font: 15px Helvetica, Arial, sans-serif;
+  color: #fff;
   padding-top: 0px;
+  background: #1e1e1e;
 }
 
 .top-bar {
   position: sticky;
   top: 0px;
-  background: var(--vscode-debugToolBar-background);
+  background: #333;
   padding: 0.5rem;
 }
 
-.dropbtn {
-  background-color: #4caf50;
-  color: white;
-  padding: 0.5rem;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
+.tabs {
   display: inline-block;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  width: fit-content;
-  z-index: 1;
-}
-
-.dropdown-content div {
-  color: black;
-  padding: 0.5rem;
-  border-radius: 5px;
-  text-decoration: none;
-  display: block;
+.tabs > button {
   cursor: pointer;
+  padding: 0.5rem;
+  margin: 1px;
+  background: #000;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  border: none;
+  outline: none;
 }
 
-.dropdown-content div:hover {
-  background-color: #f1f1f1;
+.tabs > button:hover {
+  background: #555;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+.tabs > button:focus {
+  background: #666;
 }
 
 table {
   border-collapse: collapse;
+  width: 100%;
 }
 
 th {
@@ -72,6 +57,6 @@ td {
   padding: 0.5rem;
 }
 
-tr:nth-child(odd) {
-  background-color: var(--vscode-debugToolBar-background);
+tbody > tr:nth-child(odd) {
+  background-color: #333;
 }

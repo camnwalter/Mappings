@@ -4,12 +4,11 @@ import { Field, Method, SearchType } from "./utils";
 const Table: React.FunctionComponent<{
   tab: SearchType;
   results: [string[], Method[], Field[]];
-}> = ({ tab, results: [classes, methods, fields] }) => {
+}> = React.memo(({ tab, results: [classes, methods, fields] }) => {
   return (
     <>
       {tab === SearchType.CLASS ? (
         <div>
-          <div>{classes.length} Classes</div>
           <div>
             <table>
               <thead>
@@ -29,7 +28,6 @@ const Table: React.FunctionComponent<{
         </div>
       ) : tab === SearchType.METHOD ? (
         <div>
-          <div>{methods.length} Methods</div>
           <div>
             <table>
               <thead>
@@ -53,7 +51,6 @@ const Table: React.FunctionComponent<{
         </div>
       ) : (
         <div>
-          <div>{fields.length} Fields</div>
           <div>
             <table>
               <thead>
@@ -76,6 +73,6 @@ const Table: React.FunctionComponent<{
       )}
     </>
   );
-};
+});
 
 export default Table;
