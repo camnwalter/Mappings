@@ -2,23 +2,76 @@
   box-sizing: border-box;
 }
 
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-  height: 100vh;
-  word-break: break-all;
+body {
+  font: 15px Helvetica, Arial, sans-serif;
+  padding-top: 0px;
 }
 
-.column > div {
-  padding-bottom: 10px;
+.top-bar {
+  position: sticky;
+  top: 0px;
+  background: var(--vscode-debugToolBar-background);
+  padding: 0.5rem;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem;
+  border: none;
   cursor: pointer;
-  width: max-content;
-  max-width: 100%;
 }
 
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: fit-content;
+  z-index: 1;
+}
+
+.dropdown-content div {
+  color: black;
+  padding: 0.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content div:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  width: 33.33%;
+  word-break: break-all;
+  padding: 0.5rem;
+}
+
+tr:nth-child(odd) {
+  background-color: var(--vscode-debugToolBar-background);
 }

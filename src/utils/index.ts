@@ -1,43 +1,47 @@
-import * as fs from "fs";
-import * as path from "path";
-import type { Clazz } from "../view/app/types";
+import fs from "fs";
+import path from "path";
+import type { Clazz } from "../view/app/utils";
 
-const classes: {
-  [key: string]: Clazz;
-} = {};
+const classes: Clazz[] = [];
 
 const parseClass = (line: string) => {
   const clazz = line.split(" ")[1];
-  classes[clazz] = { methods: [], fields: [] };
+  classes.push({ clazz, fields: [], methods: [] });
 };
 
 const parseMethod = (line: string) => {
   const [obf, desc, deObf] = line.split(" ").slice(1);
   let splitter = obf.lastIndexOf("/");
   const clazz = obf.slice(0, splitter);
-  const method = obf.slice(splitter + 1);
+  const srg = obf.slice(splitter + 1);
 
   splitter = deObf.lastIndexOf("/");
-  const deObfMethod = deObf.slice(splitter + 1);
+  const mcp = deObf.slice(splitter + 1);
 
-  classes[clazz].methods.push({
-    owner: clazz,
-    srg: method,
-    mcp: deObfMethod,
-    desc,
-  });
+  classes
+    ?.find(({ clazz: c }) => c === clazz)
+    ?.methods.push({
+      srg,
+      mcp,
+      desc,
+    });
 };
 
 const parseField = (line: string) => {
   const [obf, deObf] = line.split(" ").slice(1);
   let splitter = obf.lastIndexOf("/");
   const clazz = obf.slice(0, splitter);
-  const field = obf.slice(splitter + 1);
+  const srg = obf.slice(splitter + 1);
 
   splitter = deObf.lastIndexOf("/");
-  const deObfField = deObf.slice(splitter + 1, -1);
+  const mcp = deObf.slice(splitter + 1, -1);
 
-  classes[clazz].fields.push({ owner: clazz, srg: field, mcp: deObfField });
+  classes
+    ?.find(({ clazz: c }) => c === clazz)
+    ?.fields.push({
+      srg,
+      mcp,
+    });
 };
 
 const file = fs.readFileSync(
@@ -59,5 +63,5 @@ lines.forEach((line) => {
 
 fs.writeFileSync(
   path.resolve(__dirname, "../view/assets/srg-mcp.json"),
-  JSON.stringify(classes)
+  JSON.stringify(classes.sort((a, b) => a.clazz.localeCompare(b.clazz)))
 );
