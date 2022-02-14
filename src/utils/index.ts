@@ -2,46 +2,46 @@ import fs from "fs";
 import path from "path";
 import type { Clazz } from "../view/app/utils";
 
-const classes: Clazz[] = [];
+const classes: { [key: string]: Clazz } = {};
 
 const parseClass = (line: string) => {
   const clazz = line.split(" ")[1];
-  classes.push({ clazz, fields: [], methods: [] });
+  classes[clazz] = { fields: [], methods: [] };
 };
 
 const parseMethod = (line: string) => {
   const [obf, desc, deObf] = line.split(" ").slice(1);
-  let splitter = obf.lastIndexOf("/");
-  const clazz = obf.slice(0, splitter);
-  const srg = obf.slice(splitter + 1);
+  let parts = obf.split("/");
+  const srg = parts.pop() as string;
+  const clazz = parts.pop() as string;
+  const fullClass = `${parts.join("/")}/${clazz}`;
 
-  splitter = deObf.lastIndexOf("/");
-  const mcp = deObf.slice(splitter + 1);
+  parts = deObf.split("/");
+  const mcp = parts[parts.length - 1].slice(0, -1);
 
-  classes
-    ?.find(({ clazz: c }) => c === clazz)
-    ?.methods.push({
-      srg,
-      mcp,
-      desc,
-    });
+  classes[fullClass].methods.push({
+    owner: clazz,
+    srg,
+    mcp,
+    desc,
+  });
 };
 
 const parseField = (line: string) => {
   const [obf, deObf] = line.split(" ").slice(1);
-  let splitter = obf.lastIndexOf("/");
-  const clazz = obf.slice(0, splitter);
-  const srg = obf.slice(splitter + 1);
+  let parts = obf.split("/");
+  const srg = parts.pop() as string;
+  const clazz = parts.pop() as string;
+  const fullClass = `${parts.join("/")}/${clazz}`;
 
-  splitter = deObf.lastIndexOf("/");
-  const mcp = deObf.slice(splitter + 1, -1);
+  parts = deObf.split("/");
+  const mcp = parts[parts.length - 1].slice(0, -1);
 
-  classes
-    ?.find(({ clazz: c }) => c === clazz)
-    ?.fields.push({
-      srg,
-      mcp,
-    });
+  classes[fullClass].fields.push({
+    owner: clazz,
+    srg,
+    mcp,
+  });
 };
 
 const file = fs.readFileSync(
@@ -63,5 +63,5 @@ lines.forEach((line) => {
 
 fs.writeFileSync(
   path.resolve(__dirname, "../view/assets/srg-mcp.json"),
-  JSON.stringify(classes.sort((a, b) => a.clazz.localeCompare(b.clazz)))
+  JSON.stringify(classes)
 );

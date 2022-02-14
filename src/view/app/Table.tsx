@@ -12,13 +12,13 @@ const Table: React.FunctionComponent<{
           <div>
             <table>
               <thead>
-                <tr>
+                <tr key="classHead">
                   <th>Class Name</th>
                 </tr>
               </thead>
               <tbody>
-                {classes.slice(0, 100).map((clazz) => (
-                  <tr>
+                {classes.slice(0, 100).map((clazz, i) => (
+                  <tr key={i}>
                     <td>{clazz}</td>
                   </tr>
                 ))}
@@ -31,18 +31,20 @@ const Table: React.FunctionComponent<{
           <div>
             <table>
               <thead>
-                <tr>
+                <tr key="methodHead">
                   <th>MCP Name</th>
                   <th>SRG Name</th>
                   <th>Desc</th>
+                  <th>Owner</th>
                 </tr>
               </thead>
               <tbody>
-                {methods.slice(0, 100).map(({ mcp, srg, desc }) => (
-                  <tr>
+                {methods.slice(0, 100).map(({ owner, mcp, srg, desc }, i) => (
+                  <tr key={i}>
                     <td>{mcp}</td>
                     <td>{srg}</td>
                     <td>{desc}</td>
+                    <td>{owner}</td>
                   </tr>
                 ))}
               </tbody>
@@ -54,16 +56,18 @@ const Table: React.FunctionComponent<{
           <div>
             <table>
               <thead>
-                <tr>
+                <tr key="fieldHead">
                   <th>MCP Name</th>
                   <th>SRG Name</th>
+                  <th>Owner</th>
                 </tr>
               </thead>
               <tbody>
-                {fields.slice(0, 100).map(({ mcp, srg }) => (
-                  <tr>
+                {fields.slice(0, 100).map(({ owner, mcp, srg }, i) => (
+                  <tr key={i}>
                     <td>{mcp}</td>
                     <td>{srg}</td>
+                    <td>{owner}</td>
                   </tr>
                 ))}
               </tbody>
