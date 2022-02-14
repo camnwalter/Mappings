@@ -59,8 +59,8 @@ export const filterFields = async (search: string): Promise<Field[]> => {
     .sort(sortClosest(search));
 };
 
-export const enum SearchType {
-  CLASS = "class",
-  FIELD = "field",
-  METHOD = "method",
+export enum SearchType {
+  CLASS = "Classes",
+  METHOD = "Methods",
+  FIELD = "Fields",
 }

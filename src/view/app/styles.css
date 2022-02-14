@@ -16,28 +16,24 @@ body {
   padding: 0.5rem;
 }
 
+.top-bar > input {
+  margin-right: 2px;
+}
+
 .tabs {
   display: inline-block;
 }
 
-.tabs > button {
+.tabs > span {
   cursor: pointer;
   padding: 0.5rem;
-  margin: 1px;
+  margin: 2px;
   background: #000;
   color: #fff;
   border-radius: 5px;
   text-align: center;
   border: none;
   outline: none;
-}
-
-.tabs > button:hover {
-  background: #555;
-}
-
-.tabs > button:focus {
-  background: #666;
 }
 
 table {

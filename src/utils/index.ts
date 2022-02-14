@@ -17,7 +17,7 @@ const parseMethod = (line: string) => {
   const fullClass = `${parts.join("/")}/${clazz}`;
 
   parts = deObf.split("/");
-  const mcp = parts[parts.length - 1].slice(0, -1);
+  const mcp = parts[parts.length - 1];
 
   classes[fullClass].methods.push({
     owner: clazz,
