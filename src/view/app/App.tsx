@@ -8,6 +8,7 @@ import {
   filterMethods,
   Method,
   SearchType,
+  sortClosest,
 } from "./utils";
 
 const App: React.FunctionComponent = () => {
@@ -20,10 +21,30 @@ const App: React.FunctionComponent = () => {
   const [search, setSearch] = useState("");
   const onSetSearch = useCallback((e) => setSearch(e.target.value), []);
 
+  const getArray = useCallback(
+    (tab: SearchType) => {
+      switch (tab) {
+        case SearchType.CLASS:
+          return classes;
+        case SearchType.METHOD:
+          return methods;
+        case SearchType.FIELD:
+          return fields;
+      }
+    },
+    [classes, methods, fields]
+  );
+
   useEffect(() => {
-    filterClasses(search).then(setClasses);
-    filterMethods(search).then(setMethods);
-    filterFields(search).then(setFields);
+    filterClasses(search).then((classes) => {
+      setClasses(classes.sort(sortClosest(search)));
+    });
+    filterMethods(search).then((methods) => {
+      setMethods(methods.sort(sortClosest(search)));
+    });
+    filterFields(search).then((fields) => {
+      setFields(fields.sort(sortClosest(search)));
+    });
   }, [search]);
 
   return (
@@ -38,7 +59,7 @@ const App: React.FunctionComponent = () => {
               style={{ background: tab === currentTab ? "#666" : "#333" }}
               onClick={() => setCurrentTab(tab)}
             >
-              {tab}
+              {`${tab} ${getArray(tab).length}`}
             </span>
           ))}
         </div>

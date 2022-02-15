@@ -48,9 +48,14 @@ th {
 }
 
 td {
-  width: 25%;
+  width: 33.33%;
   word-break: break-all;
   padding: 0.5rem;
+}
+
+td > div {
+  width: max-content;
+  cursor: pointer;
 }
 
 tbody > tr:nth-child(odd) {

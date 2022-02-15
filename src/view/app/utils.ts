@@ -30,7 +30,7 @@ const filterBySearch =
     );
   };
 
-const sortClosest =
+export const sortClosest =
   (search: string) =>
   (a: Field | Method | string, b: Field | Method | string) => {
     if (typeof a === "string" || typeof b === "string") {
@@ -40,23 +40,19 @@ const sortClosest =
   };
 
 export const filterClasses = async (search: string): Promise<string[]> => {
-  return Object.keys(data)
-    .filter(filterBySearch(search))
-    .sort(sortClosest(search));
+  return Object.keys(data).filter(filterBySearch(search));
 };
 
 export const filterMethods = async (search: string): Promise<Method[]> => {
   return Object.values(data)
     .flatMap(({ methods }) => methods)
-    .filter(filterBySearch(search))
-    .sort(sortClosest(search));
+    .filter(filterBySearch(search));
 };
 
 export const filterFields = async (search: string): Promise<Field[]> => {
   return Object.values(data)
     .flatMap(({ fields }) => fields)
-    .filter(filterBySearch(search))
-    .sort(sortClosest(search));
+    .filter(filterBySearch(search));
 };
 
 export enum SearchType {
