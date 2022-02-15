@@ -3,7 +3,7 @@
   "displayName": "mappings",
   "publisher": "squagward",
   "description": "MCP mappings for Minecraft 1.8.9",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.64.0"
   },
