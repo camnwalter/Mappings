@@ -11,13 +11,13 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.mappingSearch"
+    "onCommand:mappings.mappingSearch"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.mappingSearch",
+        "command": "mappings.mappingSearch",
         "title": "Search mappings for classes, methods, or fields.",
         "category": "Mappings"
       }
@@ -37,6 +37,7 @@
     "@types/node": "^10.17.60",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.9.14",
+    "@types/react-modal": "^3.13.1",
     "@types/vscode": "^1.64.0",
     "css-loader": "^3.0.0",
     "npm-run-all": "^4.1.5",
@@ -49,7 +50,8 @@
   "dependencies": {
     "fastest-levenshtein": "^1.0.12",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-modal": "^3.14.4"
   },
   "repository": {
     "type": "git",

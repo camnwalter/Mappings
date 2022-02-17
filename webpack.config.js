@@ -2,10 +2,10 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    configViewer: "./src/view/app/index.tsx",
+    bundle: "./src/view/app/index.tsx",
   },
   output: {
-    path: path.resolve(__dirname, "configViewer"),
+    path: __dirname,
     filename: "[name].js",
   },
   devtool: "eval-source-map",

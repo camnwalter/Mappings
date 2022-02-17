@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, Method, SearchType } from "./utils";
+import ReactModal from "react-modal";
+
+ReactModal.setAppElement("#root");
 
 const FMHeader: React.FunctionComponent = () => (
   <thead>
@@ -13,23 +16,48 @@ const FMHeader: React.FunctionComponent = () => (
 
 const FMBody: React.FunctionComponent<{
   array: Method[] | Field[];
-}> = ({ array }) => (
-  <tbody>
-    {array.slice(0, 100).map(({ owner, mcp, srg }, i) => (
-      <tr key={i}>
-        <td>
-          <div>{mcp}</div>
-        </td>
-        <td>
-          <div>{srg}</div>
-        </td>
-        <td>
-          <div>{owner}</div>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-);
+}> = ({ array }) => {
+  const [clickedElem, setClickedElem] = useState<Method | Field | null>(null);
+
+  return (
+    <>
+      <ReactModal
+        key="modal"
+        isOpen={clickedElem !== null}
+        style={{
+          overlay: {
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+          content: {
+            background: "#1e1e1e",
+            outline: "none",
+            color: "black",
+            margin: "100px",
+          },
+        }}
+      >
+        <span className="close" onClick={() => setClickedElem(null)}>
+          x
+        </span>
+      </ReactModal>
+      <tbody className="table-body">
+        {array.slice(0, 100).map((fieldOrMethod, i) => (
+          <tr key={i} onClick={() => setClickedElem(fieldOrMethod)}>
+            <td>
+              <div>{fieldOrMethod.mcp}</div>
+            </td>
+            <td>
+              <div>{fieldOrMethod.srg}</div>
+            </td>
+            <td>
+              <div>{fieldOrMethod.owner}</div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </>
+  );
+};
 
 const Table: React.FunctionComponent<{
   tab: SearchType;

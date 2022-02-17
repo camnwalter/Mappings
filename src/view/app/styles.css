@@ -16,7 +16,7 @@ body {
   padding: 0.5rem;
 }
 
-.top-bar > input {
+.top-bar input {
   margin-right: 2px;
 }
 
@@ -53,11 +53,28 @@ td {
   padding: 0.5rem;
 }
 
-td > div {
-  width: max-content;
+tr {
   cursor: pointer;
 }
 
-tbody > tr:nth-child(odd) {
+tbody tr:hover {
+  background: #666;
+}
+
+tbody tr:nth-child(odd):not(:hover) {
   background-color: #333;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  text-decoration: none;
+  cursor: pointer;
+  color: red;
 }

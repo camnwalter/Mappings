@@ -3,7 +3,7 @@ import ViewLoader from "./view/ViewLoader";
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
-    "extension.mappingSearch",
+    "mappings.mappingSearch",
     () => {
       const view = new ViewLoader(context.extensionPath);
     }
